@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natura Portföy | Sürdürülebilir Değer, Güçlü Yarınlar</title>
+    <meta name="description" content="Nitelikli yatırımcılar için uzun vadeli değer ve yenilikçi girişimlerle büyüme fırsatı sunan portföy yönetim şirketi.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        accent: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- GSAP for Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="font-sans text-slate-800 dark:text-slate-200 bg-white dark:bg-slate-950 transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-accent-400 to-accent-600 rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                        <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Natura</span>
+                        <span class="text-xs font-medium text-accent-600 dark:text-accent-400 tracking-widest uppercase">Portföy</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="nav-link text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Hakkımızda</a>
+                    <a href="#funds" class="nav-link text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Fonlarımız</a>
+                    <a href="#why-us" class="nav-link text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">Neden Biz?</a>
+                    <a href="#contact" class="nav-link text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 transition-colors">İletişim</a>
+                    
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-accent-400"></i>
+                        <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-slate-600"></i>
+                    </button>
+                    
+                    <a href="#contact" class="ml-4 px-6 py-2.5 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-accent-500/30 transform hover:scale-105">
+                        Yatırım Yap
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-900/95 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#about" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Hakkımızda</a>
+                <a href="#funds" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Fonlarımız</a>
+                <a href="#why-us" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">Neden Biz?</a>
+                <a href="#contact" class="block px-3 py-3 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-accent-600 dark:hover:text-accent-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-md">İletişim</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-bg">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-96 h-96 bg-accent-500/20 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-primary-500/20 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+            
+            <!-- Grid Pattern -->
+            <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:100px_100px]"></div>
+        </div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center">
+            <div class="hero-content opacity-0 translate-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-accent-400 text-sm font-medium mb-8">
+                    <span class="w-2 h-2 bg-accent-400 rounded-full animate-pulse"></span>
+                    Sermaye Piyasası Kurulu Lisanslı
+                </div>
+                
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+                    Güçlü <span class="text-gradient italic">Yarınlar</span><br>
+                    İçin Yatırım
+                </h1>
+                
+                <p class="mt-6 max-w-2xl mx-auto text-xl text-slate-300 font-light leading-relaxed">
+                    Nitelikli yatırımcılar için hem arsa temelli fonlarımızla uzun vadeli değer, 
+                    hem de yenilikçi girişimlerle büyüme fırsatı sunuyoruz.
+                </p>
+                
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="#contact" class="group px-8 py-4 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/30 transform hover:scale-105 flex items-center gap-2">
+                        Hemen Yatırıma Başla
+                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    </a>
+                    <a href="#about" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full transition-all duration-300 border border-white/20 hover:border-white/40">
+                        Daha Fazla Bilgi
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto hero-stats opacity-0 translate-y-8">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-1 stat-counter" data-target="500">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Milyon TL+ Portföy</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-1 stat-counter" data-target="15">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Yıllık Deneyim</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-1 stat-counter" data-target="98">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">% Müşteri Memnuniyeti</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-1 stat-counter" data-target="12">0</div>
+                    <div class="text-sm text-slate-400 uppercase tracking-wider">Aktif Fon</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-white/50"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image Side -->
+                <div class="relative reveal-left">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&auto=format&fit=crop&q=80" 
+                             alt="Modern Architecture" 
+                             class="w-full h-[600px] object-cover transform hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent"></div>
+                        
+                        <!-- Floating Card -->
+                        <div class="absolute bottom-8 left-8 right-8 glass-effect rounded-xl p-6 text-white">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-accent-500 rounded-full flex items-center justify-center">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-white"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-lg">Güvenilir Yatırım</div>
+                                    <div class="text-sm text-slate-300">SPK Lisanslı & Denetlenen</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Decorative Element -->
+                    <div class="absolute -z-10 -bottom-8 -right-8 w-64 h-64 bg-accent-500/20 rounded-full blur-3xl"></div>
+                </div>
+
+                <!-- Content Side -->
+                <div class="reveal-right">
+                    <div class="inline-block px-4 py-1.5 bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 rounded-full text-sm font-semibold mb-6">
+                        Hakkımızda
+                    </div>
+                    
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                        Sürdürülebilir Yatırımlar,<br>
+                        <span class="text-accent-600 dark:text-accent-400">Geleceğe Değer</span>
+                    </h2>
+                    
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                        Natura Portföy olarak, yatırımcılarımızın finansal hedeflerine ulaşmaları için 
+                        yenilikçi ve sürdürülebilir çözümler sunuyoruz. Uzman ekibimizle birlikte, 
+                        gayrimenkul yatırım fonları ve girişim sermayesi alanlarında değer yaratıyoruz.
+                    </p>
+                    
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                        Her yatırım kararımızda şeffaflık, güven ve uzun vadeli düşünce ilkelerimiz 
+                        rehberliğinde hareket ediyoruz.
+                    </p>
+
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="target" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-900 dark:text-white mb-1">Stratejik Odak</h3>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">Veriye dayalı kararlar ve piyasa analizi</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i data-lucide="users" class="w-6 h-6 text-primary-600 dark:text-primary-400"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-slate-900 dark:text-white mb-1">Uzman Ekip</h3>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">15+ yıllık sektör deneyimi</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Funds Section -->
+    <section id="funds" class="py-24 bg-white dark:bg-slate-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal-up">
+                <div class="inline-block px-4 py-1.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 rounded-full text-sm font-semibold mb-6">
+                    Yatırım Fonları
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                    Fonlarımız
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400">
+                    Farklı risk profillerine ve yatırım hedeflerine uygun, profesyonel yönetilen fon seçeneklerimiz
+                </p>
+            </div>
+
+            <!-- Fund Cards -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="group relative bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden card-hover border border-slate-200 dark:border-slate-800 reveal-up">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&auto=format&fit=crop&q=80" 
+                             alt="Real Estate" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-accent-500 text-white text-xs font-bold rounded-full">GYF</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-2xl font-bold text-slate-900 dark:text-white mb-3">Natura GYF</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">
+                            Karma kullanım amaçlı arsa ve arazi yatırımları ile uzun vadeli değer artışı hedefleyen gayrimenkul yatırım fonu.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div class="text-sm">
+                                <span class="block text-slate-500 dark:text-slate-500">Min. Yatırım</span>
+                                <span class="font-semibold text-slate-900 dark:text-white">100.000 TL</span>
+                            </div>
+                            <button class="p-2 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-400 hover:bg-accent-500 hover:text-white transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="group relative bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden card-hover border border-slate-200 dark:border-slate-800 reveal-up" style="animation-delay: 0.1s;">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop&q=80" 
+                             alt="Office Building" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-primary-500 text-white text-xs font-bold rounded-full">GSYF</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-2xl font-bold text-slate-900 dark:text-white mb-3">Natura GSYF</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">
+                            Girişim sermayesi ile erken aşama şirketlere yatırım yaparak yüksek büyüme potansiyeli hedefleyen fon.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div class="text-sm">
+                                <span class="block text-slate-500 dark:text-slate-500">Min. Yatırım</span>
+                                <span class="font-semibold text-slate-900 dark:text-white">1.000.000 TL</span>
+                            </div>
+                            <button class="p-2 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-400 hover:bg-accent-500 hover:text-white transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="group relative bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden card-hover border border-slate-200 dark:border-slate-800 reveal-up" style="animation-delay: 0.2s;">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&auto=format&fit=crop&q=80" 
+                             alt="Sustainable Investment" 
+                             class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"></div>
+                        <div class="absolute bottom-4 left-4">
+                            <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full">SÜRDÜRÜLEBİLİR</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-2xl font-bold text-slate-900 dark:text-white mb-3">Natura ESG</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed">
+                            Çevresel, sosyal ve yönetişim kriterlerine uygun sürdürülebilir yatırım stratejisi ile geleceğe yatırım.
+                        </p>
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-800">
+                            <div class="text-sm">
+                                <span class="block text-slate-500 dark:text-slate-500">Min. Yatırım</span>
+                                <span class="font-semibold text-slate-900 dark:text-white">250.000 TL</span>
+                            </div>
+                            <button class="p-2 rounded-full bg-accent-500/10 text-accent-600 dark:text-accent-400 hover:bg-accent-500 hover:text-white transition-colors">
+                                <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="py-24 bg-slate-50 dark:bg-slate-900 relative overflow-hidden">
+        <!-- Background Decoration -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent-500/5 to-transparent pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal-left">
+                    <div class="inline-block px-4 py-1.5 bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-400 rounded-full text-sm font-semibold mb-6">
+                        Neden Natura Portföy?
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-8 leading-tight">
+                        Fark Yaratayan<br>
+                        <span class="text-accent-600 dark:text-accent-400">Yaklaşımımız</span>
+                    </h2>
+                    
+                    <div class="space-y-6">
+                        <div class="flex gap-4 group">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-slate-700">
+                                <i data-lucide="user-check" class="w-7 h-7 text-accent-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-xl text-slate-900 dark:text-white mb-2">Uzmanlık ve Deneyim</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Alanında uzman, tecrübeli ekibimizle portföylerinizi titizlikle yönetiyoruz.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-slate-700">
+                                <i data-lucide="settings-2" class="w-7 h-7 text-accent-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-xl text-slate-900 dark:text-white mb-2">Kişiye Özel Çözümler</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Yatırımcılarımızın ihtiyaçlarına özel stratejiler geliştirerek maksimum faydayı hedefliyoruz.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-slate-700">
+                                <i data-lucide="pie-chart" class="w-7 h-7 text-accent-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-xl text-slate-900 dark:text-white mb-2">Yatırım Çeşitliliği</h3>
+                                <p class="text-slate-600 dark:text-slate-400">GYF ve GSYF alanlarında sunduğumuz çeşitli yatırım fonlarıyla farklı risk profillerine uygun çözümler.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-slate-700">
+                                <i data-lucide="shield" class="w-7 h-7 text-accent-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-xl text-slate-900 dark:text-white mb-2">Şeffaflık ve Güven</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Tüm süreçlerimizde şeffaflığı ön planda tutuyor, yatırımcılarımıza güven veren bir yaklaşım benimsiyoruz.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-slate-700">
+                                <i data-lucide="zap" class="w-7 h-7 text-accent-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-xl text-slate-900 dark:text-white mb-2">Yenilikçi Yaklaşım</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Değişen piyasa koşullarına hızla uyum sağlayarak yatırım fırsatlarını proaktif değerlendiriyoruz.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 group">
+                            <div class="w-14 h-14 bg-white dark:bg-slate-800 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300 border border-slate-200 dark:border-slate-700">
+                                <i data-lucide="trending-up" class="w-7 h-7 text-accent-500"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-xl text-slate-900 dark:text-white mb-2">Sürdürülebilir Değer</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Sadece kısa vadeli kazançlara değil, uzun vadeli, sürdürülebilir büyümeye odaklanıyoruz.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative reveal-right">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&auto=format&fit=crop&q=80" 
+                             alt="Team Meeting" 
+                             class="w-full h-[700px] object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
+                    </div>
+                    
+                    <!-- Floating Stats Card -->
+                    <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-6 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 max-w-xs">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Yıllık Getiri</span>
+                        </div>
+                        <div class="text-3xl font-bold text-slate-900 dark:text-white">%24.8</div>
+                        <div class="text-sm text-slate-500 mt-1">Ortalama fon performansı</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-24 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-primary-900 to-slate-900"></div>
+        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 reveal-up">
+                Geleceğinizi <span class="text-gradient">Şekillendirin</span>
+            </h2>
+            <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto reveal-up">
+                Profesyonel portföy yönetimi ile tanışın. Uzmanlarımız size en uygun yatırım stratejisini sunmak için hazır.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center reveal-up">
+                <a href="#contact" class="px-8 py-4 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-accent-500/30 transform hover:scale-105">
+                    Ücretsiz Danışmanlık Al
+                </a>
+                <a href="tel:+902121234567" class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full transition-all duration-300 border border-white/20 hover:border-white/40 flex items-center justify-center gap-2">
+                    <i data-lucide="phone" class="w-5 h-5"></i>
+                    Bizi Arayın
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-white dark:bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16">
+                <!-- Contact Info -->
+                <div class="reveal-left">
+                    <div class="inline-block px-4 py-1.5 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-400 rounded-full text-sm font-semibold mb-6">
+                        İletişim
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
+                        Bizimle İletişime<br>Geçin
+                    </h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
+                        Yatırım hedefleriniz için uzmanlarımızdan randevu alın. Size en kısa sürede dönüş yapacağız.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                                <i data-lucide="map-pin" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900 dark:text-white">Adres</div>
+                                <div class="text-slate-600 dark:text-slate-400">Levent, Büyükdere Cd. No:123, 34330 Şişli/İstanbul</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                                <i data-lucide="phone" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900 dark:text-white">Telefon</div>
+                                <div class="text-slate-600 dark:text-slate-400">+90 (212) 123 45 67</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center">
+                                <i data-lucide="mail" class="w-6 h-6 text-accent-600 dark:text-accent-400"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-slate-900 dark:text-white">E-posta</div>
+                                <div class="text-slate-600 dark:text-slate-400">info@naturaportfoy.com.tr</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="mt-10 flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-accent-500 hover:text-white transition-all duration-300">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-accent-500 hover:text-white transition-all duration-300">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-accent-500 hover:text-white transition-all duration-300">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="bg-slate-50 dark:bg-slate-900 p-8 rounded-2xl border border-slate-200 dark:border-slate-800 reveal-right">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Adınız</label>
+                                <input type="text" required 
+                                       class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all outline-none"
+                                       placeholder="Ahmet Yılmaz">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Soyadınız</label>
+                                <input type="text" required 
+                                       class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all outline-none"
+                                       placeholder="Yılmaz">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">E-posta Adresiniz</label>
+                            <input type="email" required 
+                                   class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all outline-none"
+                                   placeholder="ahmet@example.com">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Telefon</label>
+                            <input type="tel" 
+                                   class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all outline-none"
+                                   placeholder="+90 (5__) ___ __ __">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">İlgilendiğiniz Fon</label>
+                            <select class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all outline-none">
+                                <option value="">Seçiniz...</option>
+                                <option value="gyf">Natura GYF</option>
+                                <option value="gsyf">Natura GSYF</option>
+                                <option value="esg">Natura ESG</option>
+                                <option value="other">Diğer</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Mesajınız</label>
+                            <textarea rows="4" 
+                                      class="w-full px-4 py-3 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-accent-500 focus:border-transparent transition-all outline-none resize-none"
+                                      placeholder="Yatırım hedefleriniz hakkında kısa bir bilgi verin..."></textarea>
+                        </div>
+
+                        <button type="submit" 
+                                class="w-full py-4 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-500/30 transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                            <span>Gönder</span>
+                            <i data-lucide="send" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-br from-accent-400 to-accent-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="trending-up" class="w-5 h-5 text-white"></i>
+                        </div>
+                        <span class="font-serif text-xl font-bold text-white">Natura Portföy</span>
+                    </div>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
+                        Sürdürülebilir yatırım stratejileri ve uzman portföy yönetimi ile 
+                        geleceğinizi şekillendiriyoruz.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Hızlı Bağlantılar</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="hover:text-accent-400 transition-colors">Hakkımızda</a></li>
+                        <li><a href="#funds" class="hover:text-accent-400 transition-colors">Fonlarımız</a></li>
+                        <li><a href="#why-us" class="hover:text-accent-400 transition-colors">Neden Biz?</a></li>
+                        <li><a href="#contact" class="hover:text-accent-400 transition-colors">İletişim</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Yasal</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-accent-400 transition-colors">Aydınlatma Metni</a></li>
+                        <li><a href="#" class="hover:text-accent-400 transition-colors">KVKK</a></li>
+                        <li><a href="#" class="hover:text-accent-400 transition-colors">Çerez Politikası</a></li>
+                        <li><a href="#" class="hover:text-accent-400 transition-colors">Rıza Metni</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500">
+                    © 2024 Natura Portföy Yönetimi A.Ş. Tüm hakları saklıdır.
+                </p>
+                <div class="flex gap-6 text-sm text-slate-500">
+                    <span>SPK Lisans No: 12345</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>
